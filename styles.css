@@ -1,5 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
 
+:root {
+  --primary-color: #333;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+  --border-color: #ccc;
+  --hover-color: #444;
+  --item-bg: #fff;
+}
+
+[data-theme="dark"] {
+  --primary-color: #fff;
+  --background-color: #1a1a1a;
+  --text-color: #fff;
+  --border-color: #444;
+  --hover-color: #666;
+  --item-bg: #2d2d2d;
+}
+
 *,
 *::before,
 *::after {
@@ -12,8 +30,9 @@ body {
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: #333;
-  background-color: #f5f5f5;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 header {
@@ -114,14 +133,65 @@ header h1 {
 
 .items li {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
   width: 45%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 10px 15px;
   margin: 0 5px 20px;
   font-weight: 700;
   cursor: pointer;
+  background-color: var(--item-bg);
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease;
+}
+
+.items li.completed {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.items li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.quantity-badge {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+#theme-toggle {
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--text-color);
 }
 
 @media (max-width: 500px) {
@@ -129,3 +199,107 @@ header h1 {
     width: 100%;
   }
 }
+
+.empty-state {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px !important;
+  text-align: center;
+  background-color: var(--item-bg);
+  border: 2px dashed var(--border-color);
+  cursor: default !important;
+  animation: none !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.empty-state::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 3s infinite;
+}
+
+.empty-state:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.empty-state i {
+  font-size: 48px;
+  color: var(--border-color);
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-state p {
+  font-weight: 400;
+  color: var(--text-color);
+  margin: 4px 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.empty-state .sub-text {
+  font-size: 14px;
+  color: var(--border-color);
+  animation: pulse 2s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Category styles */
+.category-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-right: 8px;
+}
+
+/* Category colors */
+.category-produce { background-color: #4CAF50; color: white; }
+.category-dairy { background-color: #2196F3; color: white; }
+.category-meat { background-color: #F44336; color: white; }
+.category-pantry { background-color: #FF9800; color: white; }
+.category-frozen { background-color: #00BCD4; color: white; }
+.category-beverages { background-color: #9C27B0; color: white; }
+.category-other { background-color: #757575; color: white; }

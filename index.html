@@ -19,6 +19,9 @@
       <header>
         <img src="img/note.png" alt="" />
         <h1>Shopping List</h1>
+        <button id="theme-toggle" class="btn-link">
+          <i class="fa-solid fa-moon"></i>
+        </button>
       </header>
       <form id="item-form">
         <div class="form-control">
@@ -28,6 +31,30 @@
             id="item-input"
             name="item"
             placeholder="Enter Item"
+          />
+        </div>
+        <div class="form-control">
+          <select class="form-input" id="category-input" name="category">
+            <option value="">Select Category</option>
+            <option value="produce">Produce</option>
+            <option value="dairy">Dairy</option>
+            <option value="meat">Meat</option>
+            <option value="pantry">Pantry</option>
+            <option value="frozen">Frozen</option>
+            <option value="beverages">Beverages</option>
+            <option value="frozen">Appliances</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-control">
+          <input
+            type="number"
+            class="form-input"
+            id="quantity-input"
+            name="quantity"
+            placeholder="Quantity"
+            min="0"
+            value="0"
           />
         </div>
         <div class="form-control">
@@ -47,29 +74,10 @@
       </div>
 
       <ul id="item-list" class="items">
-        <li>
-          Apples
-          <button class="remove-item btn-link text-red">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </li>
-        <li>
-          Orange Juice
-          <button class="remove-item btn-link text-red">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </li>
-        <li>
-          Oreos
-          <button class="remove-item btn-link text-red">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </li>
-        <li>
-          Milk
-          <button class="remove-item btn-link text-red">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
+        <li class="empty-state">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <p>Your shopping list is empty</p>
+          <p class="sub-text">Add items to get started!</p>
         </li>
       </ul>
 
